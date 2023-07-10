@@ -23,7 +23,10 @@ type InjectedConnectorOptions = {
   shimDisconnect?: boolean;
 };
 
-export const DesigWallet = ({ chains, ...options }: BraveWalletOptions & InjectedConnectorOptions): Wallet => ({
+export const DesigWallet = ({
+  chains,
+  ...options
+}: BraveWalletOptions & InjectedConnectorOptions): Wallet => ({
   id: "desig",
   name: "desig",
   iconUrl: "",
@@ -41,7 +44,9 @@ export const DesigWallet = ({ chains, ...options }: BraveWalletOptions & Injecte
     const getProvider = (): any => {
       console.log("first");
       // eslint-disable-next-line
-      return typeof window !== "undefined" ? ((window as any).desig as any)?.ethereum : undefined;
+      return typeof window !== "undefined"
+        ? ((window as any).desig as any)?.ethereum
+        : undefined;
     };
 
     const connector = new InjectedConnector({
@@ -55,17 +60,20 @@ export const DesigWallet = ({ chains, ...options }: BraveWalletOptions & Injecte
         instructions: {
           steps: [
             {
-              description: "We recommend pinning Phantom to your taskbar for easier access to your wallet.",
+              description:
+                "We recommend pinning Phantom to your taskbar for easier access to your wallet.",
               step: "install",
               title: "Install the Phantom extension",
             },
             {
-              description: "Be sure to back up your wallet using a secure method. Never share your secret recovery phrase with anyone.",
+              description:
+                "Be sure to back up your wallet using a secure method. Never share your secret recovery phrase with anyone.",
               step: "create",
               title: "Create or Import a Wallet",
             },
             {
-              description: "Once you set up your wallet, click below to refresh the browser and load up the extension.",
+              description:
+                "Once you set up your wallet, click below to refresh the browser and load up the extension.",
               step: "refresh",
               title: "Refresh your browser",
             },
