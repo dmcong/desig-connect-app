@@ -1,54 +1,84 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
-import Rainbowkit from "./providers/rainbowkit";
+import Rainbowkit from "./providers/evms/rainbowkit";
+import { Menu, Layout, theme as antdTheme } from "antd";
+import Evms from "./providers/evms";
+import {
+  Routes,
+  BrowserRouter as Router,
+  Route,
+  NavLink,
+} from "react-router-dom";
 
-// eslint-disable-next-line
-console.log("phantom", (window as any)?.phantom?.solana + "");
-// eslint-disable-next-line
-console.log("phantom-->", (window as any)?.phantom);
-
-// eslint-disable-next-line
-console.log("desig", (window as any)?.desig + "");
-// eslint-disable-next-line
-console.log("desig-->", (window as any)?.desig);
-
-// eslint-disable-next-line
-console.log("aptos", (window as any)?.aptos + "");
-// eslint-disable-next-line
-console.log("aptos-->", (window as any)?.aptos);
-
-// eslint-disable-next-line
-console.log("ethereum", (window as any)?.ethereum + "");
-// eslint-disable-next-line
-console.log("ethereum-->", (window as any)?.ethereum);
-
-//887ed79fede9b6ba4a3e6ed1a9ce5606
+const { Sider, Content } = Layout;
+const CHAINS = [
+  {
+    key: "1",
+    label: "EVMs",
+    children: <Evms />,
+  },
+  {
+    key: "2",
+    label: "Solana",
+    Content: "This is Solana content",
+  },
+  {
+    key: "3",
+    label: "SUI",
+    Content: "This is SUI content",
+  },
+  {
+    key: "4",
+    label: "Aptos",
+    Content: "This is Aptos content",
+  },
+];
 
 function App() {
-  const [count, setCount] = useState(0);
+  const {
+    token: { colorBgContainer },
+  } = antdTheme.useToken();
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-          <Rainbowkit />
-        </p>
-      </div>
-      <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
-    </>
+    <Router>
+      <Layout>
+        <Sider
+          trigger={null}
+          collapsible
+          style={{ background: colorBgContainer }}
+        >
+          <Menu theme="light" mode="inline" style={{ height: "100%" }}>
+            {CHAINS.map((chain) => (
+              <Menu.Item key={chain.key}>
+                <NavLink to={`/${chain.label.toLowerCase()}`}>
+                  {chain.label}
+                </NavLink>
+              </Menu.Item>
+            ))}
+          </Menu>
+        </Sider>
+        <Layout>
+          <Content
+            style={{
+              background: colorBgContainer,
+            }}
+          >
+            <Routes>
+              {CHAINS.map((chain) => (
+                <Route
+                  key={chain.key}
+                  path={`/${chain.label.toLowerCase()}`}
+                  element={chain.children}
+                />
+              ))}
+              <Route
+                path="/"
+                element={<p>Please select a chain from the menu</p>}
+              />
+            </Routes>
+          </Content>
+        </Layout>
+      </Layout>
+    </Router>
   );
 }
 
