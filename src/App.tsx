@@ -45,7 +45,12 @@ function App() {
           collapsible
           style={{ background: colorBgContainer }}
         >
-          <Menu theme="light" mode="inline" style={{ height: "100%" }}>
+          <Menu
+            theme="light"
+            mode="inline"
+            defaultSelectedKeys={["1"]}
+            style={{ height: "100%" }}
+          >
             {CHAINS.map((chain) => (
               <Menu.Item key={chain.key}>
                 <NavLink to={`/${chain.label.toLowerCase()}`}>

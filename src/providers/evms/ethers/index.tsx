@@ -1,30 +1,5 @@
 import { useState } from "react";
-import { BrowserProvider } from "ethers";
-
-const avlNetwork: any = {
-  137: {
-    chainId: `0x${Number(137).toString(16)}`,
-    rpcUrls: ["https://rpc-mainnet.matic.network/"],
-    chainName: "Polygon Mainnet",
-    nativeCurrency: {
-      name: "MATIC",
-      symbol: "MATIC",
-      decimals: 18,
-    },
-    blockExplorerUrls: ["https://polygonscan.com/"],
-  },
-  43114: {
-    chainId: `0x${Number(43114).toString(16)}`,
-    rpcUrls: ["https://api.avax.network/ext/bc/C/rpc"],
-    chainName: "Avalanche C-Chain",
-    nativeCurrency: {
-      name: "Avalanche",
-      symbol: "AVAX",
-      decimals: 18,
-    },
-    blockExplorerUrls: ["https://snowtrace.io/"],
-  },
-};
+import { BrowserProvider, ethers } from "ethers";
 
 export default function App() {
   const [publicKey, setPublickey] = useState("");
@@ -37,7 +12,7 @@ export default function App() {
       const provider = new BrowserProvider((window as any)?.desig.ethereum);
       const accounts = await provider.send("eth_requestAccounts", []);
 
-      const { name, chainId } = await provider.getNetwork();
+      const { name } = await provider.getNetwork();
 
       setNetwork(name);
       setPublickey(accounts[0]);
