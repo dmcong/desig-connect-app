@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Col, Card, Button, Row, Space, Typography } from 'antd'
+import { useState } from 'react'
+import { Col, Card, Button, Row, Typography } from 'antd'
 import { useWalletProvider } from './walletProvider'
 
 import { HederaTestnet } from '@desig/supported-chains'
