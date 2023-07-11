@@ -1,30 +1,35 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-import { Layout, theme as antdTheme } from "antd";
+import { Routes, Route, Navigate } from 'react-router-dom'
+import { Layout, theme as antdTheme } from 'antd'
 
-import ChainLoader from "views/chainLoader";
-import Sidebar from "components/sidebar";
-import Brand from "components/brand";
+import ChainLoader from 'views/chainLoader'
+import Sidebar from 'components/sidebar'
+import Brand from 'components/brand'
 
-const { Sider, Header, Footer, Content } = Layout;
+const { Sider, Header, Footer, Content } = Layout
 
 function App() {
   const {
     token: { colorBgContainer },
-  } = antdTheme.useToken();
+  } = antdTheme.useToken()
 
   return (
-    <Layout style={{ height: "100vh" }}>
-      <Header style={{ display: "flex", alignItems: "center" }}>
+    <Layout style={{ height: '100vh' }}>
+      <Header style={{ display: 'flex', alignItems: 'center' }}>
         <Brand theme="dark" />
       </Header>
-      <Content style={{ height: "100%" }}>
-        <Layout style={{ height: "100%" }}>
-          <Sider trigger={null} collapsible style={{ background: colorBgContainer }}>
+      <Content style={{ height: '100%' }}>
+        <Layout style={{ height: '100%' }}>
+          <Sider
+            trigger={null}
+            collapsible
+            style={{ background: colorBgContainer }}
+          >
             <Sidebar />
           </Sider>
           <Content
             style={{
               background: colorBgContainer,
+              padding: 24,
             }}
           >
             <Routes>
@@ -34,9 +39,11 @@ function App() {
           </Content>
         </Layout>
       </Content>
-      <Footer style={{ textAlign: "center" }}>Desig Connector ©2023 Created by Desig Labs</Footer>
+      <Footer style={{ textAlign: 'center' }}>
+        Desig Connector ©2023 Created by Desig Labs
+      </Footer>
     </Layout>
-  );
+  )
 }
 
-export default App;
+export default App
