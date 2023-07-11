@@ -1,16 +1,13 @@
-import React, { useState } from 'react'
+import { Row } from 'antd'
 import Transfer from './transfer'
 import Connect from './connect'
 
 const Hedera = () => {
-  const [accountId, setAccountId] = useState('')
-
   return (
-    <div>
-      Hedera
+    <Row gutter={[24, 24]}>
       <Connect />
       <Transfer />
-    </div>
+    </Row>
   )
 }
 
