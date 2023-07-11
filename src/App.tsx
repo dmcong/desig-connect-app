@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { Layout, theme as antdTheme } from "antd";
 
 import ChainLoader from "views/chainLoader";
@@ -28,12 +28,13 @@ function App() {
             }}
           >
             <Routes>
-              <Route path="/" element={<ChainLoader />} />
+              <Route path="/:chain" element={<ChainLoader />} />
+              <Route path="*" element={<Navigate to="/evm" />} />
             </Routes>
           </Content>
         </Layout>
       </Content>
-      <Footer style={{ textAlign: "center" }}>Ant Design ©2023 Created by Ant UED</Footer>
+      <Footer style={{ textAlign: "center" }}>Desig Connector ©2023 Created by Desig Labs</Footer>
     </Layout>
   );
 }

@@ -10,7 +10,7 @@ import { generateTheme } from "styles/themes";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <BrowserRouter basename="/">
+    <BrowserRouter>
       <ConfigProvider theme={generateTheme("light")}>
         <App />
       </ConfigProvider>

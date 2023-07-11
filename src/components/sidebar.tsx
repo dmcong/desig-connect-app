@@ -1,25 +1,29 @@
 import { NavLink } from "react-router-dom";
 import { Menu } from "antd";
-import Brand from "./brand";
 
 const CHAINS = [
   {
-    key: "1",
-    label: "EVMs",
+    key: "evm",
+    label: "EVM",
   },
   {
-    key: "2",
+    key: "solana",
     label: "Solana",
     Content: "This is Solana content",
   },
   {
-    key: "3",
+    key: "sui",
     label: "SUI",
     Content: "This is SUI content",
   },
   {
-    key: "4",
+    key: "aptos",
     label: "Aptos",
+    Content: "This is Aptos content",
+  },
+  {
+    key: "hedera",
+    label: "Hedera",
     Content: "This is Aptos content",
   },
 ];
@@ -29,7 +33,7 @@ function Sidebar() {
     <Menu theme="light" mode="inline" style={{ height: "100%" }}>
       {CHAINS.map((chain) => (
         <Menu.Item key={chain.key}>
-          <NavLink to={`/${chain.label.toLowerCase()}`}>{chain.label}</NavLink>
+          <NavLink to={`/${chain.key}`}>{chain.label}</NavLink>
         </Menu.Item>
       ))}
     </Menu>
