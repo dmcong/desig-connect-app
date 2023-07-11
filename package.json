@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@chakra-ui/react": "^2.7.1",
+    "@desig/supported-chains": "^1.0.21",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@rainbow-me/rainbowkit": "^1.0.4",

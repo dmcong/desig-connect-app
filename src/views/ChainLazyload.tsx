@@ -8,7 +8,7 @@ const ChainLoader = () => {
 
   const Component = useMemo(() => {
     return React.lazy(() =>
-      import(`./${chain}`).catch((e) => ({
+      import(`./~${chain}/index.tsx`).catch((e) => ({
         default: () => (
           <Alert
             message={`Unsupported chain: ${chain}`}

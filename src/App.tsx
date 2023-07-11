@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { Layout, theme as antdTheme } from 'antd'
 
-import ChainLoader from 'views/chainLoader'
+import ChainLoader from 'views/ChainLazyload'
 import Sidebar from 'components/sidebar'
 import Brand from 'components/brand'
 
