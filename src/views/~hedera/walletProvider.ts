@@ -5,7 +5,7 @@ interface WalletHedera {
     chainId: string,
   ) => Promise<{ chainId: string; pubkey: string; accountId: string }>
   disconnect: (chainId: string) => Promise<void>
-  getContext: () => Promise<Wallet>
+  provider: Wallet
 }
 
 export const useWalletProvider = () => {
