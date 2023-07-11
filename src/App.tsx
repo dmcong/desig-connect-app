@@ -1,5 +1,4 @@
 import "./App.css";
-import Rainbowkit from "./providers/evms/rainbowkit";
 import { Menu, Layout, theme as antdTheme } from "antd";
 import Evms from "./providers/evms";
 import {
@@ -59,6 +58,7 @@ function App() {
         <Layout>
           <Content
             style={{
+              padding: 24,
               background: colorBgContainer,
             }}
           >

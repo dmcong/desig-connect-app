@@ -5,7 +5,7 @@ import {
   RainbowKitProvider,
 } from "@rainbow-me/rainbowkit";
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
-import { mainnet, polygon, optimism, arbitrum, zora } from "wagmi/chains";
+import { mainnet, polygon, optimism, arbitrum, zora, bsc } from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
 import {
   injectedWallet,
@@ -16,7 +16,7 @@ import {
 import { desigWallet } from "./desigWallet";
 
 const { chains, publicClient } = configureChains(
-  [mainnet, polygon, optimism, arbitrum, zora],
+  [mainnet, polygon, optimism, arbitrum, bsc],
   [publicProvider()]
 );
 
@@ -49,10 +49,12 @@ const wagmiConfig = createConfig({
 
 export default function Rainbowkit() {
   return (
-    <WagmiConfig config={wagmiConfig}>
-      <RainbowKitProvider chains={chains}>
-        <ConnectButton />
-      </RainbowKitProvider>
-    </WagmiConfig>
+    <>
+      <WagmiConfig config={wagmiConfig}>
+        <RainbowKitProvider chains={chains}>
+          <ConnectButton label="Rainbow" />
+        </RainbowKitProvider>
+      </WagmiConfig>
+    </>
   );
 }
