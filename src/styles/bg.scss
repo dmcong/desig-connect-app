@@ -1,0 +1,17 @@
+@import './vars.scss';
+
+[data-theme='light'] {
+  .theming-bg {
+    background: $BG_LIGHT;
+  }
+}
+
+[data-theme='dark'] {
+  .theming-bg {
+    background: $NEUTRAL100;
+  }
+}
+
+.blur-bg {
+  backdrop-filter: blur(12px);
+}

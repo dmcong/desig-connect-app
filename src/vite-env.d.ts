@@ -14,3 +14,5 @@ interface Window {
     uid?: any;
   };
 }
+
+type Theme = "light" | "dark";

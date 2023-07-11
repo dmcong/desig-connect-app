@@ -1,37 +1,11 @@
-import "./App.css";
-import Rainbowkit from "./providers/evms/rainbowkit";
-import { Menu, Layout, theme as antdTheme } from "antd";
-import Evms from "./providers/evms";
-import {
-  Routes,
-  BrowserRouter as Router,
-  Route,
-  NavLink,
-} from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import { Layout, theme as antdTheme } from "antd";
 
-const { Sider, Content } = Layout;
-const CHAINS = [
-  {
-    key: "1",
-    label: "EVMs",
-    children: <Evms />,
-  },
-  {
-    key: "2",
-    label: "Solana",
-    Content: "This is Solana content",
-  },
-  {
-    key: "3",
-    label: "SUI",
-    Content: "This is SUI content",
-  },
-  {
-    key: "4",
-    label: "Aptos",
-    Content: "This is Aptos content",
-  },
-];
+import ChainLoader from "views/chainLoader";
+import Sidebar from "components/sidebar";
+import Brand from "components/brand";
+
+const { Sider, Header, Footer, Content } = Layout;
 
 function App() {
   const {
@@ -39,46 +13,28 @@ function App() {
   } = antdTheme.useToken();
 
   return (
-    <Router>
-      <Layout>
-        <Sider
-          trigger={null}
-          collapsible
-          style={{ background: colorBgContainer }}
-        >
-          <Menu theme="light" mode="inline" style={{ height: "100%" }}>
-            {CHAINS.map((chain) => (
-              <Menu.Item key={chain.key}>
-                <NavLink to={`/${chain.label.toLowerCase()}`}>
-                  {chain.label}
-                </NavLink>
-              </Menu.Item>
-            ))}
-          </Menu>
-        </Sider>
-        <Layout>
+    <Layout style={{ height: "100vh" }}>
+      <Header style={{ display: "flex", alignItems: "center" }}>
+        <Brand theme="dark" />
+      </Header>
+      <Content style={{ height: "100%" }}>
+        <Layout style={{ height: "100%" }}>
+          <Sider trigger={null} collapsible style={{ background: colorBgContainer }}>
+            <Sidebar />
+          </Sider>
           <Content
             style={{
               background: colorBgContainer,
             }}
           >
             <Routes>
-              {CHAINS.map((chain) => (
-                <Route
-                  key={chain.key}
-                  path={`/${chain.label.toLowerCase()}`}
-                  element={chain.children}
-                />
-              ))}
-              <Route
-                path="/"
-                element={<p>Please select a chain from the menu</p>}
-              />
+              <Route path="/" element={<ChainLoader />} />
             </Routes>
           </Content>
         </Layout>
-      </Layout>
-    </Router>
+      </Content>
+      <Footer style={{ textAlign: "center" }}>Ant Design ©2023 Created by Ant UED</Footer>
+    </Layout>
   );
 }
 
