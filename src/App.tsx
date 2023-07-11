@@ -28,7 +28,6 @@ function App() {
           </Sider>
           <Content
             style={{
-              background: colorBgContainer,
               padding: 24,
             }}
           >
@@ -39,7 +38,7 @@ function App() {
           </Content>
         </Layout>
       </Content>
-      <Footer style={{ textAlign: 'center' }}>
+      <Footer style={{ textAlign: 'center', background: colorBgContainer }}>
         Desig Connector ©2023 Created by Desig Labs
       </Footer>
     </Layout>
