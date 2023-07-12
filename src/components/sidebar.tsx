@@ -14,24 +14,27 @@ const CHAINS = [
     logo: evm,
   },
   {
+    key: 'hedera',
+    label: 'Hedera',
+    logo: hedera,
+  },
+  {
     key: 'solana',
     label: 'Solana',
     logo: solana,
+    disabled: true,
   },
   {
     key: 'sui',
     label: 'SUI',
     logo: sui,
+    disabled: true,
   },
   {
     key: 'aptos',
     label: 'Aptos',
     logo: aptos,
-  },
-  {
-    key: 'hedera',
-    label: 'Hedera',
-    logo: hedera,
+    disabled: true,
   },
 ]
 
@@ -39,24 +42,28 @@ function Sidebar() {
   const navigate = useNavigate()
   const { pathname } = useLocation()
   return (
-    <Row>
+    <Row gutter={[16, 16]}>
       <Col span={24}>
         <Menu
           theme="light"
           mode="inline"
           defaultSelectedKeys={[pathname.replace('/', '')]}
         >
-          {CHAINS.map((chain) => (
-            <Menu.Item
-              key={chain.key}
-              onClick={() => navigate(`/${chain.key}`)}
-            >
-              <Space align="center" className="space-middle-icon">
-                <img src={chain.logo} height={20} width={30} />
-                <Typography.Text>{chain.label}</Typography.Text>
-              </Space>
-            </Menu.Item>
-          ))}
+          <Menu.ItemGroup title="Supported Chains">
+            {CHAINS.map((chain) => (
+              <Menu.Item
+                key={chain.key}
+                onClick={() => navigate(`/${chain.key}`)}
+                disabled={chain.disabled}
+                style={chain.disabled ? { opacity: 0.5 } : undefined}
+              >
+                <Space align="center" className="space-middle-icon">
+                  <img src={chain.logo} height={20} width={30} />
+                  <Typography.Text>{chain.label}</Typography.Text>
+                </Space>
+              </Menu.Item>
+            ))}
+          </Menu.ItemGroup>
         </Menu>
       </Col>
     </Row>

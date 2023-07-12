@@ -6,10 +6,10 @@ export default function Evms() {
   return (
     <>
       <Row gutter={[24, 24]}>
-        <Col span={8}>
+        <Col xl={12} xs={24}>
           <Rainbowkit />
         </Col>
-        <Col span={8}>
+        <Col xs={24}>
           <WalletCard />
         </Col>
       </Row>

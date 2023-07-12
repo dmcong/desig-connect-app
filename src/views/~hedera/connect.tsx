@@ -7,7 +7,6 @@ import { HederaTestnet } from '@desig/supported-chains'
 const Connect = () => {
   const [data, setData] = useState({
     chainId: '',
-    pubkey: '',
     accountId: '',
   })
   const provider = useWalletProvider()
@@ -21,7 +20,6 @@ const Connect = () => {
     await provider.disconnect(new HederaTestnet().chainId)
     setData({
       chainId: '',
-      pubkey: '',
       accountId: '',
     })
   }
@@ -43,11 +41,6 @@ const Connect = () => {
           <Col span={24}>
             <Typography.Text>{`Chain ID: ${
               data.chainId || '--'
-            }`}</Typography.Text>
-          </Col>
-          <Col span={24}>
-            <Typography.Text>{`Pubkey ECDSA: ${
-              data.pubkey || '--'
             }`}</Typography.Text>
           </Col>
           <Col span={24}>

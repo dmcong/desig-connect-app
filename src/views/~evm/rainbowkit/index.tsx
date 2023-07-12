@@ -67,7 +67,7 @@ export default function Rainbowkit() {
                     type="link"
                     onClick={() =>
                       window.open(
-                        'https://github.com/dmcong/desig-connect-app/tree/main/src/views/~hedera',
+                        'https://github.com/dmcong/desig-connect-app/blob/main/src/views/~evm/rainbowkit/index.tsx',
                         '_blank',
                       )
                     }

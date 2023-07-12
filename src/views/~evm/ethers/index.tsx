@@ -1,7 +1,19 @@
 import { useState } from 'react'
 import { BrowserProvider, ethers } from 'ethers'
-import { Button, Card, Col, Row, Space, Typography } from 'antd'
+import {
+  Avatar,
+  Button,
+  Card,
+  Col,
+  Divider,
+  Row,
+  Space,
+  Tag,
+  Typography,
+} from 'antd'
 import desig from './logo.svg'
+import { chains } from '@desig/supported-chains'
+
 export default function App() {
   const [publicKey, setPublickey] = useState('')
   const [network, setNetwork] = useState('')
@@ -12,71 +24,79 @@ export default function App() {
 
     const provider = new BrowserProvider(window.desig.ethereum)
     const accounts = await provider.send('eth_requestAccounts', [])
-    const { name } = await provider.getNetwork()
+    const network = await provider.getNetwork()
     const balance = await provider.getBalance(accounts[0])
-    setNetwork(name)
+
+    let hexString = network.chainId.toString(16) // Convert to hex string
+    // Pad with leading zeros if the length is odd
+    if (hexString.length % 2 !== 0) {
+      hexString = '0x' + hexString
+    }
+    setNetwork(hexString)
     setPublickey(accounts[0])
     setBalance(ethers.formatEther(balance))
   }
 
+  const chain = chains[network]
+
   return (
-    <Row>
-      <Col span={24}>
-        <Card
-          title={
-            <Space align="center" className="space-middle-icon">
-              <img
-                alt="desig"
-                src={desig}
-                style={{ borderRadius: '10px' }}
-                height={30}
-              />
-              Desig Wallet
+    <Card
+      title={
+        <Space align="center" className="space-middle-icon">
+          <img
+            alt="desig"
+            src={desig}
+            style={{ borderRadius: '10px' }}
+            height={30}
+          />
+          Desig Wallet
+        </Space>
+      }
+      className="card-title"
+      bordered={false}
+      style={{ width: '100%' }}
+      extra={
+        <Space size={4}>
+          <Typography.Text>View on</Typography.Text>
+          <Button
+            type="link"
+            onClick={() =>
+              window.open(
+                'https://github.com/dmcong/desig-connect-app/blob/main/src/views/~evm/ethers/index.tsx',
+                '_blank',
+              )
+            }
+            style={{ padding: 0 }}
+          >
+            Github
+          </Button>
+        </Space>
+      }
+    >
+      <Row gutter={[8, 24]}>
+        {!publicKey ? (
+          <Col span={24}>
+            <Button type="primary" onClick={connectButton}>
+              Connect Wallet
+            </Button>
+          </Col>
+        ) : (
+          <Col span={24}>
+            <Space direction="vertical" size={0}>
+              <Tag style={{ padding: 8 }} color="success">
+                <Space>
+                  <Avatar src={chain.icon} />
+                  <Typography.Text strong>{chain.name} </Typography.Text>
+                  <Divider type="vertical" />
+                  <Typography.Text>{publicKey}</Typography.Text>
+                  <Divider type="vertical" />
+                  <Typography.Text strong>{balance}</Typography.Text>
+                </Space>
+              </Tag>
             </Space>
-          }
-          className="card-title"
-          bordered={false}
-          style={{ width: '100%' }}
-          extra={
-            <Space size={4}>
-              <Typography.Text>View on</Typography.Text>
-              <Button
-                type="link"
-                onClick={() =>
-                  window.open(
-                    'https://github.com/dmcong/desig-connect-app/tree/main/src/views/~hedera',
-                    '_blank',
-                  )
-                }
-                style={{ padding: 0 }}
-              >
-                Github
-              </Button>
-            </Space>
-          }
-        >
-          <Row gutter={[8, 24]}>
-            <Col span={24}>
-              <Button type="primary" onClick={connectButton}>
-                Connect Wallet
-              </Button>
-            </Col>
-            <Col span={24}>
-              <Space direction="vertical" size={0}>
-                <Typography.Text>{`Network: ${
-                  network || '--'
-                }`}</Typography.Text>
-                <Typography.Text>{`Address: ${
-                  publicKey || '--'
-                }`}</Typography.Text>
-                <Typography.Text>{`Balance: ${
-                  balance || '--'
-                }`}</Typography.Text>
-              </Space>
-            </Col>
-          </Row>
-        </Card>
-      </Col>
-    </Row>
+          </Col>
+        )}
+      </Row>
+    </Card>
   )
 }

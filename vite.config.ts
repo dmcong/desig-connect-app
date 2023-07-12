@@ -97,12 +97,6 @@ export default async function ({ mode }: ConfigEnv) {
           global: 'globalThis',
         },
       },
-      include: [
-        'vue',
-        '@fontsource/montserrat',
-        '@vueuse/core',
-        '@bladelabs/blade-web3.js',
-      ],
     },
   })
 }

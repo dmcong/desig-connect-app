@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { HederaTestnet } from '@desig/supported-chains'
 import { TransferTransaction } from '@hashgraph/sdk'
 
-import { Col, Card, Input, Button, Row } from 'antd'
+import { Col, Card, Input, Button, Row, notification } from 'antd'
 
 import { useWalletProvider } from './walletProvider'
 
@@ -12,30 +12,35 @@ const Transfer = () => {
   const wallet = useWalletProvider()
 
   const handleTransfer = async () => {
-    await wallet.connect(new HederaTestnet().chainId)
+    try {
+      await wallet.connect(new HederaTestnet().chainId)
 
-    const transaction = new TransferTransaction({
-      hbarTransfers: [
-        {
-          accountId: receiver,
-          amount,
-        },
-        {
-          accountId: wallet.provider.accountId.toString(),
-          amount: `-${amount}`,
-        },
-      ],
-    })
+      const transaction = new TransferTransaction({
+        hbarTransfers: [
+          {
+            accountId: receiver,
+            amount,
+          },
+          {
+            accountId: wallet.provider.accountId.toString(),
+            amount: `-${amount}`,
+          },
+        ],
+      })
 
-    const populatedTransaction = await wallet.provider.populateTransaction(
-      transaction,
-    )
-    const signedTransaction = await wallet.provider.signTransaction(
-      populatedTransaction.freeze(),
-    )
-    const result = await wallet.provider.call(signedTransaction)
-
-    console.log('result', result)
+      const populatedTransaction = await wallet.provider.populateTransaction(
+        transaction,
+      )
+      const signedTransaction = await wallet.provider.signTransaction(
+        populatedTransaction.freeze(),
+      )
+      await wallet.provider.call(signedTransaction)
+      notification.success({ message: 'Transfer Success' })
+    } catch (error: any) {
+      notification.error({ message: error.message })
+    } finally {
+      notification.success({ message: 'Transfer Success' })
+    }
   }
 
   return (
