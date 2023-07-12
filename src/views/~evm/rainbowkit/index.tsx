@@ -15,7 +15,7 @@ import {
 } from '@rainbow-me/rainbowkit/wallets'
 
 import { desigWallet } from './desigWallet'
-import { Card, Col, Row, Space } from 'antd'
+import { Avatar, Button, Card, Col, Row, Space, Typography } from 'antd'
 
 import Rainbow from './rainbow.svg'
 
@@ -54,17 +54,29 @@ export default function Rainbowkit() {
             <Card
               title={
                 <Space align="center" className="space-middle-icon">
-                  <img
-                    alt="rainbow-kit"
-                    src={Rainbow}
-                    style={{ borderRadius: '10px' }}
-                    height={30}
-                  />
-                  RainbowKit
+                  <Avatar src={Rainbow} size={30} shape="square" />
+                  <Typography.Text>RainbowKit</Typography.Text>
                 </Space>
               }
+              className="card-title"
               bordered={false}
-              style={{ width: '100%' }}
+              extra={
+                <Space size={4}>
+                  <Typography.Text>View on</Typography.Text>
+                  <Button
+                    type="link"
+                    onClick={() =>
+                      window.open(
+                        'https://github.com/dmcong/desig-connect-app/tree/main/src/views/~hedera',
+                        '_blank',
+                      )
+                    }
+                    style={{ padding: 0 }}
+                  >
+                    Github
+                  </Button>
+                </Space>
+              }
             >
               <Row gutter={[8, 12]}>
                 <Col span={24}>

@@ -1,42 +1,65 @@
-import { NavLink } from 'react-router-dom'
-import { Menu } from 'antd'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { Col, Menu, Row, Space, Typography } from 'antd'
+
+import evm from './brand/eth-logo.svg'
+import solana from './brand/solana-logo.svg'
+import sui from './brand/sui-logo.svg'
+import aptos from './brand/aptos-logo.svg'
+import hedera from './brand/hedera-logo.svg'
 
 const CHAINS = [
   {
     key: 'evm',
     label: 'EVM',
+    logo: evm,
   },
   {
     key: 'solana',
     label: 'Solana',
-    Content: 'This is Solana content',
+    logo: solana,
   },
   {
     key: 'sui',
     label: 'SUI',
-    Content: 'This is SUI content',
+    logo: sui,
   },
   {
     key: 'aptos',
     label: 'Aptos',
-    Content: 'This is Aptos content',
+    logo: aptos,
   },
   {
     key: 'hedera',
     label: 'Hedera',
-    Content: 'This is Aptos content',
+    logo: hedera,
   },
 ]
 
 function Sidebar() {
+  const navigate = useNavigate()
+  const { pathname } = useLocation()
   return (
-    <Menu theme="light" mode="inline" style={{ height: '100%' }}>
-      {CHAINS.map((chain) => (
-        <Menu.Item key={chain.key}>
-          <NavLink to={`/${chain.key}`}>{chain.label}</NavLink>
-        </Menu.Item>
-      ))}
-    </Menu>
+    <Row>
+      <Col span={24}>
+        <Menu
+          theme="light"
+          mode="inline"
+          defaultSelectedKeys={[pathname.replace('/', '')]}
+        >
+          {CHAINS.map((chain) => (
+            <Menu.Item
+              key={chain.key}
+              onClick={() => navigate(`/${chain.key}`)}
+            >
+              <Space align="center" className="space-middle-icon">
+                <img src={chain.logo} height={20} width={30} />
+                <Typography.Text>{chain.label}</Typography.Text>
+              </Space>
+            </Menu.Item>
+          ))}
+        </Menu>
+      </Col>
+    </Row>
   )
 }
 

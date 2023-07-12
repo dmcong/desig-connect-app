@@ -29,7 +29,6 @@ function App() {
           <Content
             style={{
               padding: 24,
-              background: colorBgContainer,
             }}
           >
             <Routes>
@@ -39,7 +38,7 @@ function App() {
           </Content>
         </Layout>
       </Content>
-      <Footer style={{ textAlign: 'center' }}>
+      <Footer style={{ textAlign: 'center', background: colorBgContainer }}>
         Desig Connector ©2023 Created by Desig Labs
       </Footer>
     </Layout>

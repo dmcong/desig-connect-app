@@ -11,7 +11,6 @@ export default function App() {
     if (!window.desig.ethereum) throw new Error('Browser not supported')
 
     const provider = new BrowserProvider(window.desig.ethereum)
-    console.log('provider', window.desig.ethereum)
     const accounts = await provider.send('eth_requestAccounts', [])
     const { name } = await provider.getNetwork()
     const balance = await provider.getBalance(accounts[0])
@@ -35,8 +34,26 @@ export default function App() {
               Desig Wallet
             </Space>
           }
+          className="card-title"
           bordered={false}
           style={{ width: '100%' }}
+          extra={
+            <Space size={4}>
+              <Typography.Text>View on</Typography.Text>
+              <Button
+                type="link"
+                onClick={() =>
+                  window.open(
+                    'https://github.com/dmcong/desig-connect-app/tree/main/src/views/~hedera',
+                    '_blank',
+                  )
+                }
+                style={{ padding: 0 }}
+              >
+                Github
+              </Button>
+            </Space>
+          }
         >
           <Row gutter={[8, 24]}>
             <Col span={24}>
