@@ -1,0 +1,9 @@
+.space-middle-icon {
+    display: flex !important;
+}
+.space-middle-icon .ant-space-item{
+    display: flex !important;
+}
+.card-title .ant-card-head-title{
+    display: flex !important;
+}
