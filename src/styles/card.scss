@@ -1,0 +1,31 @@
+@import './vars.scss';
+
+.select-card {
+  border-radius: 12px;
+  padding: 12px;
+  transition: 150ms;
+  transition-timing-function: ease-in-out;
+  cursor: pointer;
+}
+
+.active-card {
+  border-color: $PRIMARY !important;
+}
+.ant-card-bordered {
+  border-color: transparent;
+}
+
+.ant-card-hoverable {
+  transition: none !important;
+  &:hover {
+    border-color: $NEUTRAL10;
+  }
+}
+
+[data-theme='dark'] {
+  .ant-card-hoverable {
+    &:hover {
+      border-color: #404043;
+    }
+  }
+}

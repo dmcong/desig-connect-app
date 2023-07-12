@@ -1,0 +1,85 @@
+@import '~antd/dist/reset.css';
+@import './vars.scss';
+
+.ant-typography {
+  margin-bottom: 0px !important;
+}
+// Button
+.ant-btn-block {
+  width: 100% !important;
+}
+.ant-btn {
+  font-weight: 700 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+.ant-btn-default:hover {
+  background: #e7e7e8 !important;
+  color: #111014 !important;
+}
+
+// Card
+.ant-card {
+  box-shadow: none !important;
+}
+
+// Input Number
+.ant-input-number {
+  padding: 12px !important;
+  width: 100%;
+  .ant-input-number-handler-wrap {
+    display: none !important;
+  }
+  input {
+    padding: 0 !important;
+    height: 100% !important;
+    border-radius: 0 !important;
+  }
+}
+
+.profile-segmented {
+  .ant-segmented-item,
+  .ant-segmented-thumb {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+}
+.step {
+  .ant-progress-steps-item {
+    background: #e7e7e8 !important;
+    width: 32px !important;
+    height: 4px !important;
+    margin-inline-end: 8px !important;
+    border-radius: 8px !important;
+    &-active {
+      background-color: #111014 !important;
+    }
+  }
+}
+.pwd-progress {
+  .ant-progress-inner {
+    height: 4px !important;
+  }
+}
+
+[data-theme='dark'] {
+  .step {
+    .ant-progress-steps-item {
+      background: $NEUTRAL80 !important;
+      &-active {
+        background-color: $NEUTRAL05 !important;
+      }
+    }
+  }
+  .profile-segmented {
+    .ant-segmented-group {
+      .ant-segmented-item-selected {
+        background: $NEUTRAL90;
+      }
+    }
+  }
+  .ant-btn-default:hover {
+    background: #707072 !important;
+    color: #f3f3f3 !important;
+  }
+}

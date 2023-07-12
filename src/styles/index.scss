@@ -1,0 +1,32 @@
+@import "./ant.scss";
+@import "./hiddenScrollbar.scss";
+@import "./bg.scss";
+@import "./card.scss";
+@import "./typography.scss";
+@import "./vars.scss";
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: auto;
+}
+
+[data-theme="light"] {
+  body {
+    background-color: $BG_LIGHT;
+  }
+}
+
+[data-theme="dark"] {
+  body {
+    background-color: $NEUTRAL100;
+  }
+}
+
+body {
+  width: $REACT_APP_WIDTH;
+  min-height: $REACT_APP_HEIGHT;
+  overflow: auto;
+}
