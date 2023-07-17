@@ -11,13 +11,15 @@
   },
   "dependencies": {
     "@chakra-ui/react": "^2.7.1",
-    "@desig/supported-chains": "^1.0.21",
+    "@desig/supported-chains": "^1.0.22",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@hashgraph/sdk": "^2.29.0",
     "@rainbow-me/rainbowkit": "^1.0.4",
+    "@sentre/antd-ionicon": "^2.0.4",
     "@vitejs/plugin-basic-ssl": "^1.0.1",
     "antd": "^5.6.4",
+    "bn.js": "^5.2.1",
     "ethers": "^6.6.2",
     "framer-motion": "^10.12.18",
     "react": "^18.2.0",
@@ -31,6 +33,7 @@
     "zustand": "^4.3.9"
   },
   "devDependencies": {
+    "@types/bn.js": "^5.1.1",
     "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.6",
     "@typescript-eslint/eslint-plugin": "^5.61.0",

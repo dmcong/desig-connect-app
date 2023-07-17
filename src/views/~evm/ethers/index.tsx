@@ -1,55 +1,41 @@
-import { useState } from 'react'
-import { BrowserProvider, ethers } from 'ethers'
-import {
-  Avatar,
-  Button,
-  Card,
-  Col,
-  Divider,
-  Row,
-  Space,
-  Tag,
-  Typography,
-} from 'antd'
-import desig from './logo.svg'
+import { ReactNode, useCallback, useEffect, useState } from 'react'
 import { chains } from '@desig/supported-chains'
+import { ethers } from 'ethers'
+
+import { Avatar, Button, Card, Col, Row, Space, Typography } from 'antd'
+import Brand from 'components/brand'
+import ConnectButton from './connectButton'
+import ChainSelect from './chainSelect'
+import Transfer from './transfer'
+
+import { useChainId } from 'hooks/useChainId'
+import { useEvmProvider } from 'hooks/useEvmProvider'
 
 export default function App() {
   const [publicKey, setPublickey] = useState('')
-  const [network, setNetwork] = useState('')
   const [balance, setBalance] = useState('')
+  const { setChainId, chainId } = useChainId()
+  const provider = useEvmProvider()
 
-  const connectButton = async () => {
-    if (!window.desig.ethereum) throw new Error('Browser not supported')
-
-    const provider = new BrowserProvider(window.desig.ethereum)
+  const fetchInfo = useCallback(async () => {
+    if (!provider) return setBalance('0')
     const accounts = await provider.send('eth_requestAccounts', [])
-    const network = await provider.getNetwork()
     const balance = await provider.getBalance(accounts[0])
-
-    let hexString = network.chainId.toString(16) // Convert to hex string
-    // Pad with leading zeros if the length is odd
-    if (hexString.length % 2 !== 0) {
-      hexString = '0x' + hexString
-    }
-    setNetwork(hexString)
     setPublickey(accounts[0])
-    setBalance(ethers.formatEther(balance))
-  }
+    return setBalance(ethers.formatEther(balance))
+  }, [provider])
 
-  const chain = chains[network]
+  useEffect(() => {
+    fetchInfo()
+  }, [fetchInfo])
 
   return (
     <Card
       title={
-        <Space align="center" className="space-middle-icon">
-          <img
-            alt="desig"
-            src={desig}
-            style={{ borderRadius: '10px' }}
-            height={30}
-          />
-          Desig Wallet
+        <Space size={12} align="center" className="space-middle-icon">
+          <Brand />
+          {chainId && <ChainSelect chainId={chainId} setChainId={setChainId} />}
+          <ConnectButton />
         </Space>
       }
       className="card-title"
@@ -73,30 +59,43 @@ export default function App() {
         </Space>
       }
     >
-      <Row gutter={[8, 24]}>
-        {!publicKey ? (
-          <Col span={24}>
-            <Button type="primary" onClick={connectButton}>
-              Connect Wallet
-            </Button>
-          </Col>
-        ) : (
-          <Col span={24}>
-            <Space direction="vertical" size={0}>
-              <Tag style={{ padding: 8 }} color="success">
-                <Space>
-                  <Avatar src={chain.icon} />
-                  <Typography.Text strong>{chain.name} </Typography.Text>
-                  <Divider type="vertical" />
-                  <Typography.Text>{publicKey}</Typography.Text>
-                  <Divider type="vertical" />
-                  <Typography.Text strong>{balance}</Typography.Text>
-                </Space>
-              </Tag>
+      {!chainId ? (
+        <Typography.Text>The wallet is not connected</Typography.Text>
+      ) : (
+        <Row gutter={[24, 24]}>
+          <Col span={12}>
+            <Space size={12} direction="vertical">
+              <Content
+                label="Chain: "
+                value={
+                  <Space>
+                    <Typography.Text>{chains[chainId].name}</Typography.Text>
+                    <Avatar src={chains[chainId].icon} />
+                  </Space>
+                }
+              />
+              <Content
+                label="Address: "
+                value={<Typography.Text>{publicKey}</Typography.Text>}
+              />
+              <Content
+                label="Balance: "
+                value={<Typography.Text>{balance.slice(0, 6)}</Typography.Text>}
+              />
             </Space>
           </Col>
-        )}
-      </Row>
+          <Col span={12}>
+            <Transfer address={publicKey} />
+          </Col>
+        </Row>
+      )}
     </Card>
   )
 }
+
+const Content = ({ label, value }: { label: string; value: ReactNode }) => (
+  <Space align="center" className="space-middle-icon">
+    <Typography.Text type="secondary">{label}</Typography.Text>
+    {value}
+  </Space>
+)
