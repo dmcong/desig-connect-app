@@ -4,6 +4,7 @@ import { Layout, theme as antdTheme } from 'antd'
 import ChainLoader from 'views/ChainLazyload'
 import Sidebar from 'components/sidebar'
 import Brand from 'components/brand'
+import ProtectedExtension from 'views/protectedExtension'
 
 const { Sider, Header, Footer, Content } = Layout
 
@@ -31,10 +32,12 @@ function App() {
               padding: 24,
             }}
           >
-            <Routes>
-              <Route path="/:chain" element={<ChainLoader />} />
-              <Route path="*" element={<Navigate to="/evm" />} />
-            </Routes>
+            <ProtectedExtension>
+              <Routes>
+                <Route path="/:chain" element={<ChainLoader />} />
+                <Route path="*" element={<Navigate to="/evm" />} />
+              </Routes>
+            </ProtectedExtension>
           </Content>
         </Layout>
       </Content>
