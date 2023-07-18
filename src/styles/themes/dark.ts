@@ -13,14 +13,12 @@ export const darkTheme: ThemeConfig = {
       colorBgBody: VARIABLES.NEUTRAL100,
     },
     Card: {
-      borderRadiusLG: 24,
       colorBorder: VARIABLES.TRANSPARENT,
       boxShadow: VARIABLES.NONE,
       colorBgContainer: VARIABLES.NEUTRAL90,
       lineWidth: 1.5,
     },
     Button: {
-      borderRadiusLG: 16,
       controlHeightLG: 48,
       borderRadius: 8,
       fontSizeLG: 14,
@@ -40,7 +38,6 @@ export const darkTheme: ThemeConfig = {
       colorBgTextActive: VARIABLES.NEUTRAL90,
     },
     Input: {
-      borderRadiusLG: 16,
       controlHeightLG: 56,
       colorBgContainer: VARIABLES.NEUTRAL90,
     },
@@ -49,13 +46,11 @@ export const darkTheme: ThemeConfig = {
       colorBgContainer: VARIABLES.NEUTRAL90,
     },
     Collapse: {
-      borderRadiusLG: 24,
       colorBorder: VARIABLES.TRANSPARENT,
       colorBgContainer: VARIABLES.NEUTRAL90,
       colorBgLayout: VARIABLES.NEUTRAL90,
     },
     Modal: {
-      borderRadiusLG: 24,
       colorBgElevated: VARIABLES.NEUTRAL90,
     },
     Drawer: {

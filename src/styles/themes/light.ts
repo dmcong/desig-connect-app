@@ -1,5 +1,5 @@
-import { theme, ThemeConfig } from "antd";
-import { VARIABLES } from "./vars";
+import { theme, ThemeConfig } from 'antd'
+import { VARIABLES } from './vars'
 
 export const lightTheme: ThemeConfig = {
   algorithm: theme.defaultAlgorithm,
@@ -13,13 +13,11 @@ export const lightTheme: ThemeConfig = {
       colorBgBody: VARIABLES.BG_LIGHT,
     },
     Card: {
-      borderRadiusLG: 24,
       colorBorder: VARIABLES.TRANSPARENT,
       boxShadow: VARIABLES.NONE,
       lineWidth: 1.5,
     },
     Button: {
-      borderRadiusLG: 16,
       controlHeightLG: 48,
       borderRadius: 8,
       fontSizeLG: 14,
@@ -34,24 +32,17 @@ export const lightTheme: ThemeConfig = {
     Segmented: {
       controlHeight: 56,
       lineWidthBold: 0,
-      borderRadiusSM: 24,
     },
     Input: {
-      borderRadiusLG: 16,
       controlHeightLG: 56,
     },
-    InputNumber: {
-      borderRadius: 16,
-    },
+    InputNumber: {},
     Collapse: {
-      borderRadiusLG: 24,
       colorBorder: VARIABLES.TRANSPARENT,
     },
-    Modal: {
-      borderRadiusLG: 24,
-    },
+    Modal: {},
     Drawer: {
       colorBgElevated: VARIABLES.BG_LIGHT,
     },
   },
-};
+}
