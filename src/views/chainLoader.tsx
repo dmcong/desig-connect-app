@@ -5,7 +5,6 @@ import { Alert } from 'antd'
 
 const ChainLoader = () => {
   const { chain } = useParams()
-
   const Component = useMemo(() => {
     return React.lazy(() =>
       import(`./~${chain}/index.tsx`).catch((e) => ({

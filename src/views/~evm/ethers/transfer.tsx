@@ -1,23 +1,19 @@
 import { useCallback, useState } from 'react'
-import { toBeHex } from 'ethers'
+import { BrowserProvider, toBeHex } from 'ethers'
 
 import { Button, Col, Input, Row, Typography, notification } from 'antd'
-
-import { useEvmProvider } from 'views/~evm/useEvmProvider'
-import { decimalize } from 'utils'
 
 const Transfer = ({ address }: { address: string }) => {
   const [amount, setAmount] = useState('')
   const [loading, setLoading] = useState(false)
   const [receiver, setReceiver] = useState('')
-  const provider = useEvmProvider()
 
   const handleTransfer = useCallback(async () => {
+    const provider = new BrowserProvider(window.desig.ethereum)
     try {
       if (!provider) return
       setLoading(true)
-      const decimalAmount = decimalize(amount, 18)
-      const params = { to: receiver, value: toBeHex(decimalAmount.toString()) }
+      const params = { to: receiver, value: toBeHex(amount) }
       const { gasPrice } = await provider.getFeeData()
       const gasLimit = await provider.estimateGas({
         from: address,
@@ -41,7 +37,7 @@ const Transfer = ({ address }: { address: string }) => {
     } finally {
       setLoading(false)
     }
-  }, [address, amount, provider, receiver])
+  }, [address, amount, receiver])
 
   return (
     <Row gutter={[16, 16]}>
@@ -52,12 +48,14 @@ const Transfer = ({ address }: { address: string }) => {
         <Input
           placeholder="Enter Receiver"
           onChange={(e) => setReceiver(e.target.value)}
+          value={receiver}
         />
       </Col>
       <Col span={24}>
         <Input
           placeholder="Enter Amount"
           onChange={(e) => setAmount(e.target.value)}
+          value={amount}
         />
       </Col>
       <Col span={24}>
