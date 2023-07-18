@@ -2,17 +2,15 @@ import { Col, Row } from 'antd'
 import WalletCard from './ethers'
 import Rainbowkit from './rainbowkit'
 
-export default function Evms() {
+export default function Evm() {
   return (
-    <>
-      <Row gutter={[24, 24]}>
-        <Col xl={12} xs={24}>
-          <Rainbowkit />
-        </Col>
-        <Col xs={24}>
-          <WalletCard />
-        </Col>
-      </Row>
-    </>
+    <Row gutter={[24, 24]}>
+      <Col xl={12} xs={24}>
+        <Rainbowkit />
+      </Col>
+      <Col xs={24}>
+        <WalletCard />
+      </Col>
+    </Row>
   )
 }

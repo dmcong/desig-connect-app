@@ -9,7 +9,7 @@ import ChainSelect from './chainSelect'
 import Transfer from './transfer'
 
 import { useChainId } from 'hooks/useChainId'
-import { useEvmProvider } from 'hooks/useEvmProvider'
+import { useEvmProvider } from 'views/~evm/useEvmProvider'
 
 export default function App() {
   const [publicKey, setPublickey] = useState('')

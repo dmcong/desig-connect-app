@@ -3,7 +3,7 @@ import { toBeHex } from 'ethers'
 
 import { Button, Col, Input, Row, Typography, notification } from 'antd'
 
-import { useEvmProvider } from 'hooks/useEvmProvider'
+import { useEvmProvider } from 'views/~evm/useEvmProvider'
 import { decimalize } from 'utils'
 
 const Transfer = ({ address }: { address: string }) => {
