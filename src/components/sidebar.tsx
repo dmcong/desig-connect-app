@@ -20,7 +20,6 @@ const CHAINS = [
     key: 'cosmos',
     label: 'Cosmos',
     logo: cosmos,
-    disabled: true,
   },
   {
     key: 'hedera',

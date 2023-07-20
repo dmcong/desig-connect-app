@@ -11,10 +11,11 @@
   },
   "dependencies": {
     "@chakra-ui/react": "^2.7.1",
-    "@desig/supported-chains": "^1.0.22",
+    "@desig/supported-chains": "^1.0.24",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@hashgraph/sdk": "^2.29.0",
+    "@keplr-wallet/types": "^0.12.16",
     "@rainbow-me/rainbowkit": "^1.0.4",
     "@sentre/antd-ionicon": "^2.0.4",
     "@vitejs/plugin-basic-ssl": "^1.0.1",
