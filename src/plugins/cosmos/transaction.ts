@@ -50,8 +50,6 @@ export class TransactionProvider {
       [{ pubkey, sequence }],
       fee.amount,
       gasLimit,
-      fee.granter,
-      fee.payer,
     )
     const txRaw = TxRaw.fromPartial({
       authInfoBytes,
