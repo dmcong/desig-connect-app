@@ -11,7 +11,10 @@
   },
   "dependencies": {
     "@chakra-ui/react": "^2.7.1",
+    "@cosmjs/stargate": "^0.31.0",
     "@desig/supported-chains": "^1.0.24",
+    "@desig/tx-parser": "^0.1.4",
+    "@desig/web3": "^1.2.2",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@hashgraph/sdk": "^2.29.0",
@@ -21,6 +24,7 @@
     "@vitejs/plugin-basic-ssl": "^1.0.1",
     "antd": "^5.6.4",
     "bn.js": "^5.2.1",
+    "bs58": "^5.0.0",
     "ethers": "^6.6.2",
     "framer-motion": "^10.12.18",
     "react": "^18.2.0",

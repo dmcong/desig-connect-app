@@ -1,43 +1,37 @@
 import { useCallback, useState } from 'react'
-import { BrowserProvider, toBeHex } from 'ethers'
 
 import { Button, Col, Input, Row, Typography, notification } from 'antd'
+import { useWalletProvider } from 'providers/wallet.provider'
 
-const Transfer = ({ address }: { address: string }) => {
+const Transfer = () => {
   const [amount, setAmount] = useState('')
   const [loading, setLoading] = useState(false)
-  const [receiver, setReceiver] = useState('')
+  const [toAddress, setToAddress] = useState('')
+  const [txHash, setTxHash] = useState('')
+  const walletProvider = useWalletProvider()
 
   const handleTransfer = useCallback(async () => {
-    const provider = new BrowserProvider(window.desig.ethereum)
     try {
-      if (!provider) return
       setLoading(true)
-      const params = { to: receiver, value: toBeHex(amount) }
-      const { gasPrice } = await provider.getFeeData()
-      const gasLimit = await provider.estimateGas({
-        from: address,
-        ...params,
-      })
-      if (!gasPrice) throw new Error('Invalid gas price')
-
-      await provider.send('eth_sendTransaction', [
-        {
-          from: address,
-          gasLimit: toBeHex(gasLimit),
-          gasPrice: toBeHex(gasPrice),
-          ...params,
+      const { explorerUrl, txHash } = await walletProvider.transfer(
+        toAddress,
+        amount,
+      )
+      notification.success({
+        message: 'Transfer successfully! Click to view detail!',
+        onClick: () => {
+          window.open(explorerUrl, '_blank')
         },
-      ])
-      notification.success({ message: 'Transfer successfully!' })
+      })
       setAmount('0')
-      setReceiver('')
+      setToAddress('')
+      setTxHash(txHash)
     } catch (error: any) {
       notification.error({ message: error.message })
     } finally {
       setLoading(false)
     }
-  }, [address, amount, receiver])
+  }, [amount, toAddress, walletProvider])
 
   return (
     <Row gutter={[16, 16]}>
@@ -46,9 +40,9 @@ const Transfer = ({ address }: { address: string }) => {
       </Col>
       <Col span={24}>
         <Input
-          placeholder="Enter Receiver"
-          onChange={(e) => setReceiver(e.target.value)}
-          value={receiver}
+          placeholder="Enter To Address"
+          onChange={(e) => setToAddress(e.target.value)}
+          value={toAddress}
         />
       </Col>
       <Col span={24}>
@@ -60,7 +54,7 @@ const Transfer = ({ address }: { address: string }) => {
       </Col>
       <Col span={24}>
         <Button
-          disabled={!amount || !receiver}
+          disabled={!amount || !toAddress}
           loading={loading}
           type="primary"
           onClick={handleTransfer}
@@ -68,6 +62,7 @@ const Transfer = ({ address }: { address: string }) => {
           Transfer
         </Button>
       </Col>
+      {txHash && <Col span={24}>txHash: {txHash}</Col>}
     </Row>
   )
 }

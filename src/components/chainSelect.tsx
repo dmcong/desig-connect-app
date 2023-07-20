@@ -8,7 +8,7 @@ import { useWalletProvider, useWalletStore } from 'providers/wallet.provider'
 
 const ChainSelect = (props: { groups: GroupChain[] }) => {
   const { chainId, setChainId } = useChain()
-  const { address, setWallet } = useWalletStore()
+  const { address, setWalletAddress } = useWalletStore()
   const wallet = useWalletProvider()
   const query = useQuery()
 
@@ -31,8 +31,7 @@ const ChainSelect = (props: { groups: GroupChain[] }) => {
   const handleSwitchChain = async (chainId: string) => {
     if (address) {
       const { address } = await wallet.switchChain(chainId)
-      const balance = await wallet.getBalance()
-      setWallet({ address, balance })
+      setWalletAddress(address)
     }
     setChainId(chainId)
   }

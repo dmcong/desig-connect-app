@@ -1,33 +1,36 @@
 import { PropsWithChildren, createContext, useContext, useEffect } from 'react'
 import { create } from 'zustand'
-
 import { Result } from 'antd'
 
 /**
  * Context
  */
-
+export interface IWalletProvider {
+  getAddress: () => Promise<string>
+  getBalance: () => Promise<string>
+  switchChain: (chainId: string) => Promise<{ address: string }>
+  transfer: (
+    toAddress: string,
+    amount: string,
+  ) => Promise<{
+    explorerUrl: string
+    txHash: string
+  }>
+}
 export const WalletProviderContext = createContext<IWalletProvider | null>(null)
 
 /**
  * Store
  */
-export interface IWalletProvider {
-  getAddress: () => Promise<string>
-  getBalance: () => Promise<string>
-  switchChain: (chainId: string) => Promise<{ address: string }>
-}
 
 type WalletStore = {
   address: string
-  balance: string
-  setWallet: (payload: { address: string; balance: string }) => void
+  setWalletAddress: (address: string) => void
 }
 // eslint-disable-next-line react-refresh/only-export-components
 export const useWalletStore = create<WalletStore>()((set) => ({
   address: '',
-  balance: '',
-  setWallet: (payload: { address: string; balance: string }) => set(payload),
+  setWalletAddress: (address: string) => set({ address }),
 }))
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -39,13 +42,13 @@ const WalletProvider = ({
   children,
   provider,
 }: PropsWithChildren<{ provider: IWalletProvider | null }>) => {
-  const { setWallet } = useWalletStore()
+  const { setWalletAddress } = useWalletStore()
 
   useEffect(() => {
     return () => {
-      setWallet({ address: '', balance: '' })
+      setWalletAddress('')
     }
-  }, [setWallet])
+  }, [setWalletAddress])
 
   if (!provider)
     return (

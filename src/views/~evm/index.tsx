@@ -1,8 +1,9 @@
-import { BrowserProvider } from 'ethers'
+import { GroupChain } from '@desig/supported-chains'
+import { BrowserProvider, toBeHex } from 'ethers'
 
 import { Col, Row } from 'antd'
-import WalletCard from './ethers'
 import Rainbowkit from './rainbowkit'
+import DApp from 'views/dapp'
 
 import WalletProvider, { IWalletProvider } from 'providers/wallet.provider'
 
@@ -23,10 +24,32 @@ const WALLET_PROVIDER: IWalletProvider = (() => {
     const address = await getAddress()
     return { address }
   }
+
   return {
     getAddress,
     getBalance,
     switchChain,
+    transfer: async (toAddress: string, amount: string) => {
+      const provider = new BrowserProvider(window.desig.ethereum)
+
+      const address = await getAddress()
+      const params = { to: toAddress, value: toBeHex(amount) }
+      const { gasPrice } = await provider.getFeeData()
+      const gasLimit = await provider.estimateGas({
+        from: address,
+        ...params,
+      })
+      if (!gasPrice) throw new Error('Invalid gas price')
+      const txHash = await provider.send('eth_sendTransaction', [
+        {
+          from: address,
+          gasLimit: toBeHex(gasLimit),
+          gasPrice: toBeHex(gasPrice),
+          ...params,
+        },
+      ])
+      return { explorerUrl: '', txHash }
+    },
   }
 })()
 
@@ -38,7 +61,17 @@ export default function Evm() {
           <Rainbowkit />
         </Col>
         <Col xs={24}>
-          <WalletCard />
+          <DApp
+            src="evm"
+            groups={[
+              GroupChain.Ethereum,
+              GroupChain.Binance,
+              GroupChain.Linea,
+              GroupChain.Moonbeam,
+              GroupChain.Polygon_zkevm,
+              GroupChain.Zeta,
+            ]}
+          />
         </Col>
       </Row>
     </WalletProvider>
