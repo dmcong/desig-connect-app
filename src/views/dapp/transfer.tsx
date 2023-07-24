@@ -27,6 +27,7 @@ const Transfer = () => {
       setToAddress('')
       setTxHash(txHash)
     } catch (error: any) {
+      console.log('error', error)
       notification.error({ message: error.message })
     } finally {
       setLoading(false)
